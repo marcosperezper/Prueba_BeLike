@@ -3,16 +3,16 @@
 
 {% block content %}
     {% load crispy_forms_tags %}
-
-    <!--Register-->
     <div class="form-group col-lg-4">
-        <h1>Sing up</h1>
+        <h1>Sing up </h1>
         <form method="POST">
             {% csrf_token %}
+            <h5>Please read the sing up policy before.</h5>
+            <p>Username can not contain any special character.
+                Password has to contain at least 1 capital letter and a # character.</p>
             {{ register_form| crispy }}
-            <button class="btn btn-success" type="submit">Sing up</button>
+            <button class="btn btn-success" type="submit" disabled>Sing up</button>
         </form>
-        <p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
     </div>
 
 {% endblock %}
