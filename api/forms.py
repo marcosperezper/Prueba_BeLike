@@ -17,20 +17,23 @@ class RegistrationForm(UserCreationForm):
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
-        self.checkusername(self.cleaned_data['username'])
-        self.checkpassword(self.cleaned_data['password1'])
+        self.check_username(self.cleaned_data['username'])
+        self.check_password(self.cleaned_data['password1'])
         if commit:
             user.save()
         return user
 
-    # Checking if the password has the # character
-    def checkpassword(self, password):
+    # Checking if password has at least a capital letter
+    # and the '#' character.
+    def check_password(self, password):
         if not any(char.isupper() for char in password) or "#" not in password:
             raise ValueError("Password has to contain at least 1 capital letter and a # character")
         else:
             pass
 
-    def checkusername(self, username):
+    # Checking if username has the set of characters specifeid since
+    # Django doesn't let the user use special characters.
+    def check_username(self, username):
         special_string = re.compile('[@_.+-]')
         if special_string.search(username) is None:
             pass
